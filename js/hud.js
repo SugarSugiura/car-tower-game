@@ -88,6 +88,7 @@ export function drawHud(ctx, w, h, hud, opt = {}) {
     }
   });
 
+  let belowProgress = null;
   // 車の名前（大きく）
   const def = hud.cars[hud.current];
   if (def && !hud.summary) {
@@ -125,6 +126,7 @@ export function drawHud(ctx, w, h, hud, opt = {}) {
       ctx.fillStyle = i <= hud.block ? (i === hud.total - 1 ? YELLOW : GREEN) : 'rgba(255,255,255,0.25)';
       roundRect(ctx, bx + i * (segW + u * 0.6), py - segH / 2, segW, segH, segH * 0.3); ctx.fill();
     }
+    belowProgress = py + segH * 2;
   }
 
   // 2倍速の表示
@@ -193,6 +195,8 @@ export function drawHud(ctx, w, h, hud, opt = {}) {
   // 下の注意書き
   ctx.textAlign = 'center';
   const fs = Math.max(10, Math.min(u * 2.5, h * 0.018));
-  outlinedText(ctx, '※車名・メーカー・ロゴはすべて架空です', w / 2, h - (opt.safeBottom || 0) - fs * 1.2, fs, FONT_TEXT, 'rgba(255,255,255,0.85)', 'rgba(0,0,0,0.6)');
+  // 下のボタンが多いとき（スマホの挑戦）は、段の表示の下に出す
+  const dy = (opt.safeBottom || 0) > h * 0.2 && belowProgress ? belowProgress : h - (opt.safeBottom || 0) - fs * 1.2;
+  outlinedText(ctx, '※車名・メーカー・ロゴはすべて架空です', w / 2, dy, fs, FONT_TEXT, 'rgba(255,255,255,0.85)', 'rgba(0,0,0,0.6)');
   ctx.restore();
 }
