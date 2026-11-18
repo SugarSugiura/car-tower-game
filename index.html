@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>コンテナの塔チャレンジ</title>
+<meta name="description" content="架空の車8台が、コンテナを積んだ階段の塔を登れるかに挑戦する3Dの物理ゲーム。ブラウザでそのまま遊べます。">
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+1p:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="gl"></canvas>
+<canvas id="hud"></canvas>
+<canvas id="rec"></canvas>
+
+<div id="controls" hidden>
+  <div class="pad">
+    <button data-k="left" aria-label="左">◀</button>
+    <button data-k="right" aria-label="右">▶</button>
+  </div>
+  <div class="pad">
+    <button data-k="back" class="small">バック</button>
+    <button data-k="gas" class="gas">アクセル</button>
+  </div>
+</div>
+
+<div id="pick" hidden>
+  <button id="prevCar" aria-label="前の車">◀ 車</button>
+  <button id="retry" hidden>もう一度</button>
+  <button id="nextCar" aria-label="次の車">車 ▶</button>
+</div>
+<div id="help" hidden>↑・W：アクセル　↓・S：バック　←→・AD：ハンドル　スペース：ブレーキ　R：やり直し</div>
+
+<div id="bar">
+  <button id="btnWatch" class="active">見る</button>
+  <button id="btnChallenge">挑戦</button>
+  <button id="btnRec">● 縦動画を書き出す</button>
+</div>
+
+<div id="saved" hidden>
+  <p>録画が終わりました（1080×1920 の縦長）</p>
+  <a id="saveLink" href="#">動画を保存</a>
+  <button id="closeSaved">閉じる</button>
+</div>
+
+<div id="loading">読み込み中…</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
