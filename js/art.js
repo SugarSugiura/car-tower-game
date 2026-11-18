@@ -18,6 +18,7 @@ export function drawEmblem(ctx, maker, cx, cy, r, color = '#ffffff', bg = '#1a1a
   const fillBadge = (shape) => {
     ctx.fillStyle = bg; ctx.strokeStyle = color; ctx.lineWidth = r * 0.12;
     shape(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = color; ctx.strokeStyle = color;
   };
   ctx.fillStyle = color; ctx.strokeStyle = color;
   switch (maker) {
