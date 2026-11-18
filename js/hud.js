@@ -127,6 +127,13 @@ export function drawHud(ctx, w, h, hud, opt = {}) {
     }
   }
 
+  // 2倍速の表示
+  if (hud.fast && !hud.stamp) {
+    const fs = u * 4.2;
+    ctx.textAlign = 'right';
+    outlinedText(ctx, '▶▶ 2倍速', x0 + cw - u * 3, h * 0.42, fs, FONT_BIG, '#ffffff');
+  }
+
   // はじめのタイトル
   if (hud.title != null && hud.title < 2.6) {
     const a = Math.min(1, hud.title * 4, (2.6 - hud.title) * 3);

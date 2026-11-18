@@ -79,7 +79,7 @@ export class Car3D {
     this.dentables.push(cabin);
     // 屋根（車体の色）
     const roofL = cl * (1 - rake * 0.8);
-    const roof = new THREE.Mesh(new THREE.BoxGeometry(cw * 0.9, 0.06, Math.max(0.3, roofL)), this.paint);
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(cw * 0.86, 0.06, Math.max(0.3, roofL)), this.paint);
     roof.position.set(0, BH / 2 + ch + 0.0, d.cabinOffset + (cl * rake * -0.1));
     roof.castShadow = true;
     this.root.add(roof);
@@ -87,7 +87,7 @@ export class Car3D {
     // 柱（窓の枠）
     for (const sx of [-1, 1]) {
       const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.05, ch * 0.9, Math.max(0.2, roofL * 0.8)), this.paint);
-      pillar.position.set(sx * cw * 0.47, BH / 2 + ch * 0.5, d.cabinOffset);
+      pillar.position.set(sx * cw * 0.45, BH / 2 + ch * 0.5, d.cabinOffset);
       this.root.add(pillar);
     }
 

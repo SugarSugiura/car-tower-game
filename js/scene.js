@@ -197,7 +197,8 @@ export class CameraRig {
     } else {
       const fx = state.fwd.x, fz = state.fwd.z;
       const n = Math.hypot(fx, fz) || 1;
-      want = new THREE.Vector3(p.x - (fx / n) * 7.5, p.y + 3.2, p.z - (fz / n) * 7.5);
+      const back = portrait ? 10 : 7.5;
+      want = new THREE.Vector3(p.x - (fx / n) * back, p.y + (portrait ? 3.8 : 3.2), p.z - (fz / n) * back);
       look = new THREE.Vector3(p.x + (fx / n) * 3, p.y + 0.8, p.z + (fz / n) * 3);
     }
     const k = snap ? 1 : 1 - Math.exp(-dt * 3.2);

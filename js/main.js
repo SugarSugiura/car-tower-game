@@ -140,6 +140,13 @@ function stepOnce() {
   } else if (car && app.judge.result) app.judge.resultT += DT;
 }
 
+// 「見る」で止まって空回りしている間は2倍速にする（動画を短くする）
+function playSpeed() {
+  if (app.mode !== 'watch' || app.watch.phase !== 'run') return 1;
+  const j = app.judge;
+  return j.t - j.lastProgressT > 1.5 ? 2 : 1;
+}
+
 function onResult(res) {
   if (app.mode === 'watch') {
     const w = app.watch;
@@ -213,6 +220,7 @@ function hudState() {
       block: app.judge.best, total: app.sim.blocks.length,
       stamp: w.phase === 'result' ? { ...w.results[w.index], t: w.phaseT } : null,
       title: w.phase === 'title' ? w.phaseT : null,
+      fast: playSpeed() > 1,
       summary: w.phase === 'summary' ? w.phaseT : null,
     };
   }
@@ -257,10 +265,10 @@ let last = 0;
 function loop(ts) {
   const dt = Math.min(0.1, last ? (ts - last) / 1000 : DT);
   last = ts;
-  app.acc += dt;
+  app.acc += dt * playSpeed();
   let n = 0;
-  while (app.acc >= DT && n < 6) { stepOnce(); app.acc -= DT; n++; }
-  if (n === 6) app.acc = 0;
+  while (app.acc >= DT && n < 10) { stepOnce(); app.acc -= DT; n++; }
+  if (n === 10) app.acc = 0;
   renderFrame(dt);
   requestAnimationFrame(loop);
 }
@@ -405,8 +413,9 @@ function updateUI() {
 window.__cap = {
   start() { setRecLayout(true); startWatch(); this.n = 0; return true; },
   frame(steps = 2) {
-    for (let i = 0; i < steps; i++) stepOnce();
-    renderFrame(DT * steps);
+    const k = steps * playSpeed();
+    for (let i = 0; i < k; i++) stepOnce();
+    renderFrame(DT * k);
     this.n++;
     return app.rec.toDataURL('image/jpeg', 0.92);
   },
